@@ -24,6 +24,28 @@ namespace App1
             if (NEED_POPULATE) populateItems();
             btn_first.Clicked += onFirstClicked;
             btn_second.Clicked += onSecondClicked;
+            addPicker();
+        }
+
+        private void addPicker()
+        {
+            Picker picker = new Picker
+            {
+                Title = "Random Picker"
+            };
+
+            picker.Items.Add("first");
+            picker.Items.Add("second");
+            picker.Items.Add("third");
+            picker.Items.Add("fourth");
+            picker.SelectedIndexChanged += onSelectedChanged;
+            addView(picker);
+        }
+
+        private void onSelectedChanged(object sender, EventArgs e)
+        {
+            Picker picker = (sender as Picker);
+            this.FindByName<Label>("welcome").Text = picker.Items[picker.SelectedIndex];
         }
 
         private void onSecondClicked(object sender, EventArgs e)
