@@ -25,6 +25,7 @@ namespace App1
             btn_first.Clicked += onFirstClicked;
             btn_second.Clicked += onSecondClicked;
             addPicker();
+            new Stepper(this.FindByName<StackLayout>("stack")).addViews();
         }
 
         private void addPicker()
