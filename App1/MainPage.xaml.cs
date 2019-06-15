@@ -19,13 +19,18 @@ namespace App1
         public MainPage()
         {
             InitializeComponent();
-
+            Title = "MAIN PAGE";
             this.FindByName<StackLayout>("stack").BackgroundColor = Color.Aquamarine;
             if (NEED_POPULATE) populateItems();
             btn_first.Clicked += onFirstClicked;
-            btn_second.Clicked += onSecondClicked;
+            btn_second.Clicked += onNextPageClicked;
             addPicker();
             new Stepper(this.FindByName<StackLayout>("stack")).addViews();
+        }
+
+        private async void onNextPageClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new StartPage());
         }
 
         private void addPicker()

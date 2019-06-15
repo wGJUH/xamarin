@@ -9,10 +9,35 @@ namespace App1
     {
         public StartPage()
         {
-            this.Content = new Label() {
-                Text = " test"
+            Title = "SECOND PAGE";
+            var label = new Label()
+            {
+                Text = "AnothePage"
             };
+
+            var buttonBack = new Button
+            {
+                Text = "BACK"
+            };
+
+            buttonBack.Clicked += onBackClicked;
+
+            var stack = new StackLayout
+            {
+
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            stack.Children.Add(label);
+            stack.Children.Add(buttonBack);
+            this.Content = stack;
+        }
+
+        private async void onBackClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
         }
     }
-   
+
 }
