@@ -29,6 +29,10 @@
                 x:Name="btn_third"
                 Text="stepper"
                 />
+            <Button
+                x:Name="btn_fourth"
+                Text="picker"
+                />
         </StackLayout>
     </StackLayout>
 </ContentPage>

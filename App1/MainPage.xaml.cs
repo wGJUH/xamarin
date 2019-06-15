@@ -25,7 +25,12 @@ namespace App1
             btn_first.Clicked += datePickerPageOpen;
             btn_second.Clicked += onNextPageClicked;
             btn_third.Clicked += onStepperPageOpenClicked;
-            addPicker();
+            btn_fourth.Clicked += onPickerOpenPageClicked;
+        }
+
+        private async void onPickerOpenPageClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PickerPage());
         }
 
         private async void onStepperPageOpenClicked(object sender, EventArgs e)
@@ -36,27 +41,6 @@ namespace App1
         private async void onNextPageClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new DatePickerPage());
-        }
-
-        private void addPicker()
-        {
-            Picker picker = new Picker
-            {
-                Title = "Random Picker"
-            };
-
-            picker.Items.Add("first");
-            picker.Items.Add("second");
-            picker.Items.Add("third");
-            picker.Items.Add("fourth");
-            picker.SelectedIndexChanged += onSelectedChanged;
-            addView(picker);
-        }
-
-        private void onSelectedChanged(object sender, EventArgs e)
-        {
-            Picker picker = (sender as Picker);
-            this.FindByName<Label>("welcome").Text = picker.Items[picker.SelectedIndex];
         }
 
         private void onSecondClicked(object sender, EventArgs e)
@@ -98,9 +82,6 @@ namespace App1
         {
             await Navigation.PushAsync(new DatePickerPage());
         }
-
-
-
 
         private void onButtonClicked(object sender, EventArgs e)
         {
