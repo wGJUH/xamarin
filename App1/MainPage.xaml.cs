@@ -22,7 +22,7 @@ namespace App1
             Title = "MAIN PAGE";
             this.FindByName<StackLayout>("stack").BackgroundColor = Color.Aquamarine;
             if (NEED_POPULATE) populateItems();
-            btn_first.Clicked += onFirstClicked;
+            btn_first.Clicked += datePickerPageOpen;
             btn_second.Clicked += onNextPageClicked;
             addPicker();
             new Stepper(this.FindByName<StackLayout>("stack")).addViews();
@@ -30,7 +30,7 @@ namespace App1
 
         private async void onNextPageClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new StartPage());
+            await Navigation.PushAsync(new DatePickerPage());
         }
 
         private void addPicker()
@@ -89,28 +89,13 @@ namespace App1
             }
         }
 
-        private void onFirstClicked(Object sender, EventArgs e)
+        private async void datePickerPageOpen(Object sender, EventArgs e)
         {
-            showDatePicker();
+            await Navigation.PushAsync(new DatePickerPage());
         }
 
-        private void showDatePicker()
-        {
-            DatePicker datePicker = new DatePicker
-            {
-                Format = "D",
-                MaximumDate = DateTime.Now,
-                MinimumDate = DateTime.Now.AddDays(-5)
-            };
 
-            datePicker.DateSelected += onDateSelected;
-            addView(datePicker);
-        }
 
-        private void onDateSelected(object sender, DateChangedEventArgs e)
-        {
-            this.FindByName<Label>("welcome").Text = "You choose: " + e.NewDate.ToString("dd/MM/yyyy");
-        }
 
         private void onButtonClicked(object sender, EventArgs e)
         {

@@ -9,29 +9,6 @@
 
     <StackLayout x:Name="stack">
         <!--  Place new controls here  -->
-        <Grid>
-            <Label
-                    Grid.Row="0"
-                    BackgroundColor="Silver"
-                    FontSize="Large"
-                    Text="Hello3"
-                    TextColor="Red" />
-
-            <Label
-                    Grid.Row="1"
-                    BackgroundColor="Silver"
-                    FontSize="Large"
-                    Text="Hello2"
-                    TextColor="Red" />
-
-            <Label
-                    Grid.Row="2"
-                    BackgroundColor="Silver"
-                    FontSize="Large"
-                    Text="Hello1"
-                    TextColor="Red" />
-        </Grid>
-
         <Label
             x:Name="welcome"
                 HorizontalOptions="Center"
