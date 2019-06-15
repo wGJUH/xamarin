@@ -24,8 +24,13 @@ namespace App1
             if (NEED_POPULATE) populateItems();
             btn_first.Clicked += datePickerPageOpen;
             btn_second.Clicked += onNextPageClicked;
+            btn_third.Clicked += onStepperPageOpenClicked;
             addPicker();
-            new Stepper(this.FindByName<StackLayout>("stack")).addViews();
+        }
+
+        private async void onStepperPageOpenClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new StepperPage());
         }
 
         private async void onNextPageClicked(object sender, EventArgs e)

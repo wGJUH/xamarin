@@ -19,11 +19,15 @@
             x:Name="second_stack">
             <Button
                 x:Name="btn_first"
-                Text="first"
+                Text="datepicker"
                 />
             <Button
                 x:Name="btn_second"
                 Text="second"
+                />
+            <Button
+                x:Name="btn_third"
+                Text="stepper"
                 />
         </StackLayout>
     </StackLayout>
