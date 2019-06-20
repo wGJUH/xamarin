@@ -25,6 +25,12 @@ namespace App1
             btn_second.Clicked += onNextPageClicked;
             btn_third.Clicked += onStepperPageOpenClicked;
             btn_fourth.Clicked += onPickerOpenPageClicked;
+            btn_fifth.Clicked += OnListViewBtnClicked;
+        }
+
+        private async void OnListViewBtnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ListViewPage());
         }
 
         private async void onPickerOpenPageClicked(object sender, EventArgs e)

@@ -33,6 +33,10 @@
                 x:Name="btn_fourth"
                 Text="picker"
                 />
+            <Button
+                x:Name="btn_fifth"
+                Text="list_view"
+                />
         </StackLayout>
     </StackLayout>
 </ContentPage>
