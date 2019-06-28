@@ -11,6 +11,8 @@
                 VerticalOptions="Start" 
                 HorizontalOptions="Center" />
             <ListView
+                HasUnevenRows="True"
+                ItemsSource="{Binding Phones}"
                 x:Name="randomListView"/>
         </StackLayout>
     </ContentPage.Content>

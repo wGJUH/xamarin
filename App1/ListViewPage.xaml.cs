@@ -16,18 +16,18 @@ namespace App1
     {
 
         public TextCell textCell = new TextCell { };
-        private ObservableCollection<Phone> phones = new ObservableCollection<Phone>();
-
+        //this field should be public to work with Binding via xaml
+        public ObservableCollection<Phone> Phones { get; set; } = new ObservableCollection<Phone>();
 
         public ListViewPage()
         {
             InitializeComponent();
             Title = "List View Page";
-            
-            randomListView.HasUnevenRows = true;
+
+            //DataTamplate explain how should be show element in the list
             randomListView.ItemTemplate = new DataTemplate(DataTemplateViewCell);
-            randomListView.ItemsSource = phones;
-            PopulateListItems();
+            //BindingContext of the element require not exact property, but class that is owner of needed property
+            randomListView.BindingContext = this;
         }
 
 
@@ -59,6 +59,12 @@ namespace App1
 
         private bool RunTimer = true;
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            PopulateListItems();
+        }
+
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
@@ -69,8 +75,8 @@ namespace App1
         {
             while (RunTimer)
             {
-                Console.WriteLine(String.Format("add line {0}", phones.Count));
-                phones.Add(new Phone(String.Format("first {0}", phones.Count), "apple", 100 * phones.Count));
+                Console.WriteLine(String.Format("add line {0}", Phones.Count));
+                Phones.Add(new Phone(String.Format("first {0}", Phones.Count), "apple", 100 * Phones.Count));
                 await Task.Delay(1000);
             }
         }
