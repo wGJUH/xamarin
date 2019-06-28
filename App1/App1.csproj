@@ -25,7 +25,7 @@
     <EmbeddedResource Update="DatePickerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ListViewPage.xaml">
+    <EmbeddedResource Update="listview\ListViewPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="PickerPage.xaml">

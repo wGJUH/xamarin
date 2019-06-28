@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App1.listview;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,17 +20,38 @@ namespace App1
         //this field should be public to work with Binding via xaml
         public ObservableCollection<Phone> Phones { get; set; } = new ObservableCollection<Phone>();
 
+        public List<Phone> Phones2 { get; set; } = new List<Phone>()
+        {
+            new Phone("first", "apple", 100)
+        };
+
         public ListViewPage()
         {
             InitializeComponent();
             Title = "List View Page";
 
             //DataTamplate explain how should be show element in the list
-            randomListView.ItemTemplate = new DataTemplate(DataTemplateViewCell);
+            randomListView.ItemTemplate = new DataTemplate(DataTemplateCustomCell);
             //BindingContext of the element require not exact property, but class that is owner of needed property
             randomListView.BindingContext = this;
+            PopulateListItems();
         }
 
+
+
+        private CustomCell DataTemplateCustomCell()
+        {
+            CustomCell customCell = new CustomCell()
+            {
+                ImageWidth = 45,
+                ImageHeight = 60
+            };
+            customCell.SetBinding(CustomCell.TitleProperty, "Title");
+            customCell.SetBinding(CustomCell.PriceProperty, "Price");
+            customCell.SetBinding(CustomCell.CompanyProperty, "Company");
+            customCell.SetBinding(CustomCell.ImageProperty, "ImagePath");
+            return customCell;
+        }
 
         private ViewCell DataTemplateViewCell()
         {
@@ -59,12 +81,6 @@ namespace App1
 
         private bool RunTimer = true;
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            PopulateListItems();
-        }
-
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
@@ -77,6 +93,7 @@ namespace App1
             {
                 Console.WriteLine(String.Format("add line {0}", Phones.Count));
                 Phones.Add(new Phone(String.Format("first {0}", Phones.Count), "apple", 100 * Phones.Count));
+
                 await Task.Delay(1000);
             }
         }
