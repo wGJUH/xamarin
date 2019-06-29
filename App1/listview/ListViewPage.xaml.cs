@@ -20,6 +20,8 @@ namespace App1
         //this field should be public to work with Binding via xaml
         public ObservableCollection<Phone> Phones { get; set; } = new ObservableCollection<Phone>();
 
+        public ObservableCollection<GroupingCollection<string, Phone>> PhoneGroups { get; set; } = new ObservableCollection<GroupingCollection<string, Phone>>();
+
         public List<Phone> Phones2 { get; set; } = new List<Phone>()
         {
             new Phone("first", "apple", 100)
@@ -31,7 +33,7 @@ namespace App1
             Title = "List View Page";
 
             //DataTamplate explain how should be show element in the list
-           // randomListView.ItemTemplate = new DataTemplate(DataTemplateCustomCell);
+            // randomListView.ItemTemplate = new DataTemplate(DataTemplateCustomCell);
             //BindingContext of the element require not exact property, but class that is owner of needed property
             randomListView.BindingContext = this;
         }
@@ -84,14 +86,14 @@ namespace App1
         {
             base.OnAppearing();
             PopulateListItems();
-            DeleteListItems();
+            // DeleteListItems();
         }
 
         private async void DeleteListItems()
         {
             while (RunTimer)
             {
-                var randomVal = new Random().Next(Phones.Count - 1);
+                var randomVal = new Random().Next(Phones.Count);
                 Console.WriteLine(String.Format("delete line {0}", randomVal));
                 Phones.RemoveAt(randomVal);
                 await Task.Delay(3000);
@@ -102,16 +104,36 @@ namespace App1
         {
             base.OnDisappearing();
             RunTimer = false;
-
         }
+
+        String[] companys = new String[] { "apple", "samsung", "huawei" };
         private async void PopulateListItems()
         {
+            Phones.CollectionChanged += Phones_CollectionChanged;
             while (RunTimer)
             {
+                Phones.Add(new Phone(String.Format("first {0}", Phones.Count), companys[new Random().Next(companys.Length)], 100 * Phones.Count));
                 Console.WriteLine(String.Format("add line {0}", Phones.Count));
-                Phones.Add(new Phone(String.Format("first {0}", Phones.Count), "apple", 100 * Phones.Count));
-
                 await Task.Delay(1000);
+            }
+        }
+
+        private void Phones_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            InsertPhone((sender as ObservableCollection<Phone>).LastOrDefault());
+        }
+
+        private void InsertPhone(Phone phone)
+        {
+            int index = PhoneGroups.IndexOf(PhoneGroups.Where(g => g.Name.Equals(phone.Company)).FirstOrDefault());
+
+            if (index == -1)
+            {
+                PhoneGroups.Add(new GroupingCollection<string, Phone>(phone.Company, new List<Phone> { phone }));
+            }
+            else
+            {
+                PhoneGroups.ElementAt(index).Add(phone);
             }
         }
     }

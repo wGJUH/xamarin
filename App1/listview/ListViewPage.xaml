@@ -13,8 +13,18 @@
                 HorizontalOptions="Center" />
             <ListView
                 HasUnevenRows="True"
-                ItemsSource="{Binding Phones}"
+                ItemsSource="{Binding PhoneGroups}"
+                IsGroupingEnabled="True"
                 x:Name="randomListView">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="30">
+                            <StackLayout>
+                                <Label Text="{Binding Name}" FontSize="Large" TextColor="Aquamarine" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <local:CustomCell
@@ -24,7 +34,8 @@
                             Title="{Binding Title}"
                             Company="{Binding Company,  StringFormat='Флагман компании {0}'}"
                             Price="{Binding Price, StringFormat='минимальная стоимость {0}'}"/>
-                    </DataTemplate>
+                      </DataTemplate>
+
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
