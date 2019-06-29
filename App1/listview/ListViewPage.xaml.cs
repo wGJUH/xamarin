@@ -84,6 +84,18 @@ namespace App1
         {
             base.OnAppearing();
             PopulateListItems();
+            DeleteListItems();
+        }
+
+        private async void DeleteListItems()
+        {
+            while (RunTimer)
+            {
+                var randomVal = new Random().Next(Phones.Count - 1);
+                Console.WriteLine(String.Format("delete line {0}", randomVal));
+                Phones.RemoveAt(randomVal);
+                await Task.Delay(3000);
+            }
         }
 
         protected override void OnDisappearing()
