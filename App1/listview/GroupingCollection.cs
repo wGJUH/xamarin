@@ -14,5 +14,6 @@ namespace App1.listview
             foreach (T item in items)
                 Items.Add(item);
         }
+        
     }
 }

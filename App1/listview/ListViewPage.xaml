@@ -8,11 +8,13 @@
              x:Class="App1.ListViewPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="THIS IS LIST VIEW PAGE"
+            <Label Text= "{Binding Count, StringFormat='Добавлено {0} моделей'}"
+                   x:Name="titleName"
                 VerticalOptions="Start" 
                 HorizontalOptions="Center" />
             <ListView
                 HasUnevenRows="True"
+                CachingStrategy="RecycleElement"
                 ItemsSource="{Binding PhoneGroups}"
                 IsGroupingEnabled="True"
                 x:Name="randomListView">

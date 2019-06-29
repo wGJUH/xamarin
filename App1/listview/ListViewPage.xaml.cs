@@ -16,6 +16,20 @@ namespace App1
     public partial class ListViewPage : ContentPage
     {
 
+        private int count = 0;
+        public int Count
+        {
+            get
+            {
+                return count;
+            }
+            set
+            {
+                count = value;
+                OnPropertyChanged("Count");
+            }
+        }
+
         public TextCell textCell = new TextCell { };
         //this field should be public to work with Binding via xaml
         public ObservableCollection<GroupingCollection<string, Phone>> PhoneGroups { get; set; } = new ObservableCollection<GroupingCollection<string, Phone>>();
@@ -34,6 +48,7 @@ namespace App1
             // randomListView.ItemTemplate = new DataTemplate(DataTemplateCustomCell);
             //BindingContext of the element require not exact property, but class that is owner of needed property
             randomListView.BindingContext = this;
+            titleName.BindingContext = this;
         }
 
 
@@ -107,10 +122,9 @@ namespace App1
         String[] companys = new String[] { "apple", "samsung", "huawei" };
         private async void PopulateListItems()
         {
-            int count = 0;
             while (RunTimer)
             {
-                InsertPhone(new Phone(String.Format("first {0}", count++), companys[new Random().Next(companys.Length)], 100 * Math.Abs(new Random().Next())));
+                InsertPhone(new Phone(String.Format("first {0}", Count++), companys[new Random().Next(companys.Length)], 100 * Math.Abs(new Random().Next())));
                 await Task.Delay(1000);
             }
         }
