@@ -18,8 +18,6 @@ namespace App1
 
         public TextCell textCell = new TextCell { };
         //this field should be public to work with Binding via xaml
-        public ObservableCollection<Phone> Phones { get; set; } = new ObservableCollection<Phone>();
-
         public ObservableCollection<GroupingCollection<string, Phone>> PhoneGroups { get; set; } = new ObservableCollection<GroupingCollection<string, Phone>>();
 
         public List<Phone> Phones2 { get; set; } = new List<Phone>()
@@ -93,9 +91,9 @@ namespace App1
         {
             while (RunTimer)
             {
-                var randomVal = new Random().Next(Phones.Count);
+                var randomVal = new Random().Next(PhoneGroups.Count);
                 Console.WriteLine(String.Format("delete line {0}", randomVal));
-                Phones.RemoveAt(randomVal);
+                PhoneGroups.RemoveAt(randomVal);
                 await Task.Delay(3000);
             }
         }
@@ -109,19 +107,14 @@ namespace App1
         String[] companys = new String[] { "apple", "samsung", "huawei" };
         private async void PopulateListItems()
         {
-            Phones.CollectionChanged += Phones_CollectionChanged;
+            int count = 0;
             while (RunTimer)
             {
-                Phones.Add(new Phone(String.Format("first {0}", Phones.Count), companys[new Random().Next(companys.Length)], 100 * Phones.Count));
-                Console.WriteLine(String.Format("add line {0}", Phones.Count));
+                InsertPhone(new Phone(String.Format("first {0}", count++), companys[new Random().Next(companys.Length)], 100 * Math.Abs(new Random().Next())));
                 await Task.Delay(1000);
             }
         }
 
-        private void Phones_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            InsertPhone((sender as ObservableCollection<Phone>).LastOrDefault());
-        }
 
         private void InsertPhone(Phone phone)
         {
