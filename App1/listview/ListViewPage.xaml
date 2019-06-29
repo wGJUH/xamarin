@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:App1.listview"
              mc:Ignorable="d"
              x:Class="App1.ListViewPage">
     <ContentPage.Content>
@@ -13,7 +14,19 @@
             <ListView
                 HasUnevenRows="True"
                 ItemsSource="{Binding Phones}"
-                x:Name="randomListView"/>
+                x:Name="randomListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <local:CustomCell
+                            ImageWidth="45"
+                            ImageHeight="60"
+                            Image="{Binding ImagePath}"
+                            Title="{Binding Title}"
+                            Company="{Binding Company,  StringFormat='Флагман компании {0}'}"
+                            Price="{Binding Price, StringFormat='минимальная стоимость {0}'}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

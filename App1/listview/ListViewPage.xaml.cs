@@ -31,10 +31,9 @@ namespace App1
             Title = "List View Page";
 
             //DataTamplate explain how should be show element in the list
-            randomListView.ItemTemplate = new DataTemplate(DataTemplateCustomCell);
+           // randomListView.ItemTemplate = new DataTemplate(DataTemplateCustomCell);
             //BindingContext of the element require not exact property, but class that is owner of needed property
             randomListView.BindingContext = this;
-            PopulateListItems();
         }
 
 
@@ -80,6 +79,12 @@ namespace App1
         }
 
         private bool RunTimer = true;
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            PopulateListItems();
+        }
 
         protected override void OnDisappearing()
         {
